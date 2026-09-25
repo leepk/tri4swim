@@ -2,6 +2,6 @@
 .env
 yarn.lock
 /tri4swim-next/node_modules
-/tri4swim-next
+/tri4swim-next/.next
 tri4swim-next/.env
 *.zip
