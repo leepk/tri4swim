@@ -1,3 +1,0 @@
-import {NextRequest,NextResponse} from 'next/server';import {prisma} from '@/lib/db';import {ADMIN_COOKIE,validSession} from '@/lib/admin-auth'
-const auth=(r:NextRequest)=>validSession(r.cookies.get(ADMIN_COOKIE)?.value)
-export async function PATCH(r:NextRequest){if(!auth(r))return NextResponse.json({error:'Unauthorized'},{status:401});const b=await r.json();const id=Number(b.id);if(!id)return NextResponse.json({error:'Lesson id required'},{status:400});return NextResponse.json(await prisma.lessonType.update({where:{id},data:{name:String(b.name),description:String(b.description),image:b.image?String(b.image):null,durationMin:Number(b.durationMin)||60,active:b.active!==false,sort:Number(b.sort)||0}}))}

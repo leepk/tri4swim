@@ -1,7 +1,3 @@
 /.next
 .env
-/node_modules
-/tri4swim-next/.next
-/tri4swim-next/.env
-/tri4swim-next/node_modules
-/*.zip
+yarn.lock
