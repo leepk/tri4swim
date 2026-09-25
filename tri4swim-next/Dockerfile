@@ -1,6 +1,7 @@
 FROM node:22-alpine AS deps
 WORKDIR /app
 COPY package*.json ./
+COPY prisma ./prisma
 RUN yarn install --ignore-engines
 
 FROM node:22-alpine AS builder
