@@ -1,0 +1,3 @@
+import {NextRequest,NextResponse} from 'next/server'; import {prisma} from '@/lib/db';import {ADMIN_COOKIE,validSession} from '@/lib/admin-auth'
+export async function GET(req:NextRequest){if(!validSession(req.cookies.get(ADMIN_COOKIE)?.value))return NextResponse.json({error:'Unauthorized'},{status:401});return NextResponse.json(await prisma.blockedTime.findMany({orderBy:{start:'asc'}}))}
+export async function POST(req:NextRequest){if(!validSession(req.cookies.get(ADMIN_COOKIE)?.value))return NextResponse.json({error:'Unauthorized'},{status:401});const b=await req.json();return NextResponse.json(await prisma.blockedTime.create({data:{start:new Date(b.start),end:new Date(b.end),title:b.title||'Unavailable',note:b.note||null}}),{status:201})}

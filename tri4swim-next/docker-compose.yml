@@ -1,0 +1,17 @@
+services:
+  tri4swim:
+    build: .
+    container_name: tri4swim
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      UPLOAD_DIR: /app/uploads
+    ports:
+      - "3000:3000"
+    volumes:
+      # Persistent host folder for Admin image uploads.
+      - ./uploads:/app/uploads
+    # Lets Linux Docker containers reach PostgreSQL running on the host.
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
