@@ -77,6 +77,9 @@ model Booking {
   lessonType   LessonType?   @relation(fields: [lessonTypeId], references: [id])
   start        DateTime
   end          DateTime
+  requestStartDate DateTime?
+  requestEndDate   DateTime?
+  schedules    BookingSchedule[]
   parentName   String
   studentName  String?
   email        String
@@ -92,6 +95,18 @@ model Booking {
 
   @@index([start, end])
   @@index([status, start])
+}
+
+
+model BookingSchedule {
+  id        Int     @id @default(autoincrement())
+  bookingId Int
+  booking   Booking @relation(fields: [bookingId], references: [id], onDelete: Cascade)
+  weekday   Int
+  startTime String
+  endTime   String
+
+  @@index([bookingId, weekday])
 }
 
 model Testimonial {
